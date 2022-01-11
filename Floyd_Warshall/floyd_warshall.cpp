@@ -2,20 +2,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define infinite 9999 // ¸¸¾à 9999 ÀÌ»óÀÇ °ªÀ» »ç¿ëÇÒ °æ¿ì 
-#define NIL 7777 ///NIL °ªÀ» ÀÓÀÇÀÇ °ªÀ¸·Î ÁöÁ¤
+#define infinite 9999 // ë§Œì•½ 9999 ì´ìƒì˜ ê°’ì„ ì‚¬ìš©í•  ê²½ìš° 
+#define NIL 7777 ///NIL ê°’ì„ ì„ì˜ì˜ ê°’ìœ¼ë¡œ ì§€ì •
 
 void floyd_warshall(int*** distancematrix, int*** predecessormatrix, int value);
 int main()
 {
-	FILE* input = fopen("input.txt", "r"); //ÆÄÀÏÀ» ¿­¾îÁØ´Ù. 
+	FILE* input = fopen("input.txt", "r"); //íŒŒì¼ì„ ì—´ì–´ì¤€ë‹¤. 
 	if (input == NULL)
 	{
 		printf("File Open Error");
 	}
 	FILE* distoutput = fopen("floyd_warshall_distance.txt", "w");
 	FILE* predecoutput = fopen("floyd_warshall_predecessor.txt", "w");
-	char string[10] = { 0 }; //µÎÀÚ¸®¼ö ÀÌ»ó ¹Ş°í½ÍÀ¸¸é string¼öÁ¤
+	char string[10] = { 0 }; //ë‘ìë¦¬ìˆ˜ ì´ìƒ ë°›ê³ ì‹¶ìœ¼ë©´ stringìˆ˜ì •
 	fscanf(input, "%s", string);
 	int value = 0;
 	for (int i = 0; i <= strlen(string) - 1; i++)
@@ -23,11 +23,11 @@ int main()
 		value += string[i] - 48;
 		value *= 10;
 	}
-	value /= 10; //row ¼ö
+	value /= 10; //row ìˆ˜
 
 	int*** distmatrix;
 	int*** predmatrix;
-	distmatrix = (int***)malloc(sizeof(int**) * (value+1)); //µ¿ÀûÇÒ´ç
+	distmatrix = (int***)malloc(sizeof(int**) * (value+1)); //ë™ì í• ë‹¹
 	predmatrix = (int***)malloc(sizeof(int**) * (value+1));
 	for (int j = 0; j <= value; j++)
 	{
@@ -38,15 +38,15 @@ int main()
 			distmatrix[j][k] = (int*)malloc(sizeof(int) * value);
 			predmatrix[j][k] = (int*)malloc(sizeof(int) * value);
 		}
-	}// ¿©±â±îÁö µ¿ÀûÇÒ´ç
-	for(int i = 0; i < value; i++) //ÃÊ±â°ª ÀÔ·Â
+	}// ì—¬ê¸°ê¹Œì§€ ë™ì í• ë‹¹
+	for(int i = 0; i < value; i++) //ì´ˆê¸°ê°’ ì…ë ¥
 	{
 		for (int j = 0; j < value; j++)
 		{
 			char string[10] = { 0 };
 			fscanf(input, "%s", string);
 			int number = 0;
-			if (string[0] == '-')//À½¼ö weight°ª ÀÔ·Â ¹ŞÀ¸¸é
+			if (string[0] == '-')//ìŒìˆ˜ weightê°’ ì…ë ¥ ë°›ìœ¼ë©´
 			{
 				for (int i = 1; i <= strlen(string) - 1; i++)
 				{
@@ -57,7 +57,7 @@ int main()
 				number = number * (-1);
 			}
 			else
-			{//¾ç¼ö weight°ª ÀÔ·Â¹ŞÀ¸¸é
+			{//ì–‘ìˆ˜ weightê°’ ì…ë ¥ë°›ìœ¼ë©´
 				for (int i = 0; i <= strlen(string) - 1; i++)
 				{
 					number += string[i] - 48;
@@ -67,22 +67,22 @@ int main()
 			}
 			
 
-			if (((number == 0) && (i == j)) || (number != 0)) //ÀÚ±â ÀÚ½Å¿¡°Ô °¡´Â weight
+			if (((number == 0) && (i == j)) || (number != 0)) //ìê¸° ìì‹ ì—ê²Œ ê°€ëŠ” weight
 			{
 				distmatrix[0][i][j] = number;
 			}
-			else//°°Áö ¾ÊÀºµ¥ 0ÀÌ ÀÔ·ÂµÉ°æ¿ì infinite°ª ³Ö¾îÁØ´Ù
+			else//ê°™ì§€ ì•Šì€ë° 0ì´ ì…ë ¥ë ê²½ìš° infiniteê°’ ë„£ì–´ì¤€ë‹¤
 			{
 				distmatrix[0][i][j] = infinite;
 			}
 
-			if ((distmatrix[0][i][j] == infinite) || (distmatrix[0][i][j] == 0)) //NIL°ª ÀÔ·Â È¤Àº ÀÚ±â ÀÚ½ÅÀ¸·Î °¡´Â °æ¿ì 
+			if ((distmatrix[0][i][j] == infinite) || (distmatrix[0][i][j] == 0)) //NILê°’ ì…ë ¥ í˜¹ì€ ìê¸° ìì‹ ìœ¼ë¡œ ê°€ëŠ” ê²½ìš° 
 			{
-				predmatrix[0][i][j] = NIL; //NIL °ªÀ» ¹Ş°í
+				predmatrix[0][i][j] = NIL; //NIL ê°’ì„ ë°›ê³ 
 			}
 			else
 			{
-				predmatrix[0][i][j] = i+1; // ¾Æ´Ñ°æ¿ì (i°¡ 0ºÎÅÍ ½ÃÀÛÇØ¼­ i+1À» ÇØÁØ´Ù)
+				predmatrix[0][i][j] = i+1; // ì•„ë‹Œê²½ìš° (iê°€ 0ë¶€í„° ì‹œì‘í•´ì„œ i+1ì„ í•´ì¤€ë‹¤)
 			}
 		}
 	}
@@ -120,22 +120,22 @@ void floyd_warshall(int*** distancematrix, int*** predecessormatrix, int value)
 		{
 			for (int j = 0; j < n; j++)
 			{
-				if (distancematrix[k - 1][i][j] <= (distancematrix[k - 1][i][k - 1] + distancematrix[k - 1][k - 1][j])) //ÀÌÀü°ªÀÌ ÀÛ´Ù¸é
+				if (distancematrix[k - 1][i][j] <= (distancematrix[k - 1][i][k - 1] + distancematrix[k - 1][k - 1][j])) //ì´ì „ê°’ì´ ì‘ë‹¤ë©´
 				{
-					distancematrix[k][i][j] = distancematrix[k - 1][i][j]; //ÀÌÀü °ª ±×´ë·Î À¯Áö
+					distancematrix[k][i][j] = distancematrix[k - 1][i][j]; //ì´ì „ ê°’ ê·¸ëŒ€ë¡œ ìœ ì§€
 					predecessormatrix[k][i][j] = predecessormatrix[k - 1][i][j];
 				}
 				else
 				{
-					distancematrix[k][i][j] = distancematrix[k - 1][i][k - 1] + distancematrix[k - 1][k - 1][j]; //»õ·Î¿î vertex°ÅÄ£ °ªÀÌ ÀÛ´Ù¸é distance ÀúÀå
+					distancematrix[k][i][j] = distancematrix[k - 1][i][k - 1] + distancematrix[k - 1][k - 1][j]; //ìƒˆë¡œìš´ vertexê±°ì¹œ ê°’ì´ ì‘ë‹¤ë©´ distance ì €ì¥
 					if (distancematrix[k][i][j] < 7000)
 					{
-						predecessormatrix[k][i][j] = predecessormatrix[k - 1][k-1][j]; //»õ·Î¿î °ª k, j ÀúÀå(k-1 vertex ¸¦ °ÅÃÄ¼­ °¡´Âµ¥, ¿©±â¿¡¼­ ÇØ´çÇÏ´Â °ªÀ¸
-							//predeessormatrix¿¡¼­´Â k-1ÀÌ Æ¯Á¤ °æ·Î·Î °¡±â À§ÇØ Á¦ÀÏ ¸¶Áö¸·À¸·Î Áö³ªÃÄ¾ß ÇÒ vertexÀÇ Á¤º¸°¡ Á¸ÀçÇÑ´Ù.
+						predecessormatrix[k][i][j] = predecessormatrix[k - 1][k-1][j]; //ìƒˆë¡œìš´ ê°’ k, j ì €ì¥(k-1 vertex ë¥¼ ê±°ì³ì„œ ê°€ëŠ”ë°, ì—¬ê¸°ì—ì„œ í•´ë‹¹í•˜ëŠ” ê°’ìœ¼
+							//predeessormatrixì—ì„œëŠ” k-1ì´ íŠ¹ì • ê²½ë¡œë¡œ ê°€ê¸° ìœ„í•´ ì œì¼ ë§ˆì§€ë§‰ìœ¼ë¡œ ì§€ë‚˜ì³ì•¼ í•  vertexì˜ ì •ë³´ê°€ ì¡´ì¬í•œë‹¤.
 					}
 					else
 					{
-						predecessormatrix[k][i][j] = predecessormatrix[k - 1][i][j]; // È¤½Ã¸ğ¸¦ INFINITE °ªÀÌ ÀÛ¾ÆÁ³´Ù°í ÀÔ·ÂµÇ´Â »óÈ² ¹æÁö 
+						predecessormatrix[k][i][j] = predecessormatrix[k - 1][i][j]; // í˜¹ì‹œëª¨ë¥¼ INFINITE ê°’ì´ ì‘ì•„ì¡Œë‹¤ê³  ì…ë ¥ë˜ëŠ” ìƒí™© ë°©ì§€ 
 					}
 					
 				}
