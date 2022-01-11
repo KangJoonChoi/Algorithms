@@ -5,7 +5,7 @@
 // 
 // Create Date:    18:34:22 05/26/2021 
 // Design Name: 
-// Module Name:    basicpipeline 
+// Module Name:    advancedpipeline 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
