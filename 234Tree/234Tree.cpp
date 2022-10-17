@@ -18,17 +18,17 @@ void fusion(Node* parentnode, int nodewithelement, int nodewithoutelement);
 
 struct node
 {
-	int element[4];//¼ö¾÷ÀÚ·á¿Í µ¿ÀÏÇÑ insertionÀ» ±¸ÇöÇÏ±â À§ÇØ ¿¹ºñ element1°³ ÇÊ¿ä
-	Node* link[5];//¼ö¾÷ÀÚ·á¿Í µ¿ÀÏÇÑ insertion±¸ÇöÇÏ±â À§ÇØ ¿¹ºñ linkÇÊ¿ä(ÀÚ½ÄÁÖ¼Ò)
-	int celementnum;//ÇöÀç node¿¡ µé¾îÀÖ´Â elementÀÇ ¼ö
-	bool leaf;//leaf³ëµåÀÎÁö ¾Æ´ÑÁö ÆÇº°
-	int depth;//Ãâ·ÂÀ» À§ÇÑ ¿ä¼Ò
+	int element[4];//ìˆ˜ì—…ìë£Œì™€ ë™ì¼í•œ insertionì„ êµ¬í˜„í•˜ê¸° ìœ„í•´ ì˜ˆë¹„ element1ê°œ í•„ìš”
+	Node* link[5];//ìˆ˜ì—…ìë£Œì™€ ë™ì¼í•œ insertionêµ¬í˜„í•˜ê¸° ìœ„í•´ ì˜ˆë¹„ linkí•„ìš”(ìì‹ì£¼ì†Œ)
+	int celementnum;//í˜„ì¬ nodeì— ë“¤ì–´ìˆëŠ” elementì˜ ìˆ˜
+	bool leaf;//leafë…¸ë“œì¸ì§€ ì•„ë‹Œì§€ íŒë³„
+	int depth;//ì¶œë ¥ì„ ìœ„í•œ ìš”ì†Œ
 };
 
-Node* queue[10000];//PrintÇÏ±â À§ÇØ ¼±¾ğÇÑ ¹è¿­(ÃÖ´ë 10000°³±îÁö º¸°ü °¡´É)
-//¸Ş¸ğ¸®¸¦ ¾Æ³¢±â À§ÇØ Á¦ÇÑÇÔ ´õ ¸¹Àº µ¥ÀÌÅÍÀÇ °æ¿ì ¼öÁ¤¹Ù¶÷
-int inlist = 0; //queue¿¡ ¸î°³ÀÇ µ¥ÀÌÅÍ°¡ µé¾î¿Ô¾ú´ÂÁö ¾Ë·ÁÁÜ
-int nodetoprint = 0; //¸î¹øÂ° ¹è¿­À» Ãâ·ÂÇÒÁö
+Node* queue[10000];//Printí•˜ê¸° ìœ„í•´ ì„ ì–¸í•œ ë°°ì—´(ìµœëŒ€ 10000ê°œê¹Œì§€ ë³´ê´€ ê°€ëŠ¥)
+//ë©”ëª¨ë¦¬ë¥¼ ì•„ë¼ê¸° ìœ„í•´ ì œí•œí•¨ ë” ë§ì€ ë°ì´í„°ì˜ ê²½ìš° ìˆ˜ì •ë°”ëŒ
+int inlist = 0; //queueì— ëª‡ê°œì˜ ë°ì´í„°ê°€ ë“¤ì–´ì™”ì—ˆëŠ”ì§€ ì•Œë ¤ì¤Œ
+int nodetoprint = 0; //ëª‡ë²ˆì§¸ ë°°ì—´ì„ ì¶œë ¥í• ì§€
 
 int main(void)
 {
@@ -41,8 +41,8 @@ int main(void)
 	FILE* output = fopen("output.txt", "w");
 	while (1)
 	{
-		char string[15] = { 0 }; //15character ÀÌ»ó ¹Ş°í½ÍÀº °æ¿ì ¼öÁ¤ÇÏ¸é µÈ´Ù. ¸Ş¸ğ¸® ³¶ºñ¶§¹®¿¡ 15·Î ¼³Á¤ÇÏ¿´´Ù.
-		if (feof(input))break;//ÆÄÀÏ ¸Ç ¸¶Áö¸·ºÎºĞÀÌ¸é breakÇÑ´Ù.
+		char string[15] = { 0 }; //15character ì´ìƒ ë°›ê³ ì‹¶ì€ ê²½ìš° ìˆ˜ì •í•˜ë©´ ëœë‹¤. ë©”ëª¨ë¦¬ ë‚­ë¹„ë•Œë¬¸ì— 15ë¡œ ì„¤ì •í•˜ì˜€ë‹¤.
+		if (feof(input))break;//íŒŒì¼ ë§¨ ë§ˆì§€ë§‰ë¶€ë¶„ì´ë©´ breakí•œë‹¤.
 		fscanf(input, "%s", string);
 		fprintf(output, "%s\n", string);
 		char order = string[0];
@@ -56,17 +56,17 @@ int main(void)
 		Node* newroot = makenode();
 		newroot->leaf = false;
 		newroot->link[0] = root;
-		/// function³»ºÎ¿¡¼­ »õ root³ëµå¸¦ ¸¸µé°ÔµÇ¸é °£ÇæÀûÀ¸·Î
-		/// freeÇÏÁö ¾Ê¾Ò´Âµ¥µµ °ªÀÌ ±úÁö´Â ¹®Á¦¸¦ ¹ß°ßÇÏ¿´´Ù
-		/// ±×·¸±â¿¡ ¿ÜºÎ¿¡¼­ »õ·Î¿î root³ëµå¸¦ ¸¸µé¾î splitÇÔ¼ö¸¦ ÅëÇØ
-		/// ÀÎÀÚ¸¦ Àü´ŞÇÏ·Á ÇÑ´Ù.
+		/// functionë‚´ë¶€ì—ì„œ ìƒˆ rootë…¸ë“œë¥¼ ë§Œë“¤ê²Œë˜ë©´ ê°„í—ì ìœ¼ë¡œ
+		/// freeí•˜ì§€ ì•Šì•˜ëŠ”ë°ë„ ê°’ì´ ê¹¨ì§€ëŠ” ë¬¸ì œë¥¼ ë°œê²¬í•˜ì˜€ë‹¤
+		/// ê·¸ë ‡ê¸°ì— ì™¸ë¶€ì—ì„œ ìƒˆë¡œìš´ rootë…¸ë“œë¥¼ ë§Œë“¤ì–´ splití•¨ìˆ˜ë¥¼ í†µí•´
+		/// ì¸ìë¥¼ ì „ë‹¬í•˜ë ¤ í•œë‹¤.
 		if (order == 'i')//insert
 		{
 			insert(root, value);
 			if (root->celementnum == 4)
 			{
-				split(newroot, 0); //ÀÌ¹Ì child·Î root°ªÀ» ¸¸µé¾î ³õ¾Ò±â¿¡ 0¿¡¼­ splitÇÑ´Ù
-				root = newroot;//»õ·Î¿î root°ªÀ» ÁöÁ¤ÇØÁØ´Ù.
+				split(newroot, 0); //ì´ë¯¸ childë¡œ rootê°’ì„ ë§Œë“¤ì–´ ë†“ì•˜ê¸°ì— 0ì—ì„œ splití•œë‹¤
+				root = newroot;//ìƒˆë¡œìš´ rootê°’ì„ ì§€ì •í•´ì¤€ë‹¤.
 			}
 			printer(root, output);
 			fprintf(output, "\n\n");
@@ -74,12 +74,12 @@ int main(void)
 		if (order == 'd')//deletion
 		{
 			root = deletion(newroot, value, 0);
-			if (root->link[0] == NULL || root == NULL) //±¸¼úÁØºñ ÇÏ´Ù ¹ß°ßÇÑ ¿À·ù µ¿ÀÛ¿¡´Â ¹®Á¦´Â ¾ø¾úÁö¸¸ »ç½Ç ÀÇµµ»óÀ¸·Î´Â root.link[0]ÀÌ¾ú¾î¾ß ÇÑ´Ù
+			if (root->link[0] == NULL || root == NULL) //êµ¬ìˆ ì¤€ë¹„ í•˜ë‹¤ ë°œê²¬í•œ ì˜¤ë¥˜ ë™ì‘ì—ëŠ” ë¬¸ì œëŠ” ì—†ì—ˆì§€ë§Œ ì‚¬ì‹¤ ì˜ë„ìƒìœ¼ë¡œëŠ” root.link[0]ì´ì—ˆì–´ì•¼ í•œë‹¤
 			{
-				root = makenode();//root¸¦ °¡¸£Å°´Â ÇÔ¼ö´Â while¹Ù±ù¿¡ ÀÖÀ¸¹Ç·Î ¿ÏÀü deleteÈÄ »õ·Î¿î insert operationÀ»
-				//À§ÇØ¼± ÇØÁà¾ß ÇÑ´Ù.
+				root = makenode();//rootë¥¼ ê°€ë¥´í‚¤ëŠ” í•¨ìˆ˜ëŠ” whileë°”ê¹¥ì— ìˆìœ¼ë¯€ë¡œ ì™„ì „ deleteí›„ ìƒˆë¡œìš´ insert operationì„
+				//ìœ„í•´ì„  í•´ì¤˜ì•¼ í•œë‹¤.
 			}
-			else if (root->element[0] == -1 && root->link[0])//root¸¸ fusionÀ¸·Î ÀÎÇÏ¿© »ç¶óÁø °æ¿ì
+			else if (root->element[0] == -1 && root->link[0])//rootë§Œ fusionìœ¼ë¡œ ì¸í•˜ì—¬ ì‚¬ë¼ì§„ ê²½ìš°
 			{
 			root = root->link[0];
 			}
@@ -105,17 +105,17 @@ int main(void)
 }
 
 
-Node* makenode(void) //»õ·Î¿î node¸¦ ¸¸µé¶§¸¶´Ù ÃÊ±âÈ­ ¼³Á¤ÀÌ Áß¿äÇÏ´Ù
+Node* makenode(void) //ìƒˆë¡œìš´ nodeë¥¼ ë§Œë“¤ë•Œë§ˆë‹¤ ì´ˆê¸°í™” ì„¤ì •ì´ ì¤‘ìš”í•˜ë‹¤
 {
 	Node* newnode;
 	newnode = (Node*)malloc(sizeof(Node));//
 	newnode->celementnum = 0;
 	newnode->leaf = 1;
-	newnode->element[0] = -1; //-1·Î ÃÊ±âÈ­
+	newnode->element[0] = -1; //-1ë¡œ ì´ˆê¸°í™”
 	newnode->element[1] = -1;
 	newnode->element[2] = -1;
 	newnode->element[3] = -1;
-	newnode->link[0] = NULL; //ÀÓÀÇÀÇ ÁÖ¼Ò°ªÀ» °¡¸£Å°¸é ¾ÈµÇ´Ï NULL·Î ÀÚ½ÄÁÖ¼Ò ÃÊ±âÈ­
+	newnode->link[0] = NULL; //ì„ì˜ì˜ ì£¼ì†Œê°’ì„ ê°€ë¥´í‚¤ë©´ ì•ˆë˜ë‹ˆ NULLë¡œ ìì‹ì£¼ì†Œ ì´ˆê¸°í™”
 	newnode->link[1] = NULL;
 	newnode->link[2] = NULL;
 	newnode->link[3] = NULL;
@@ -125,21 +125,21 @@ Node* makenode(void) //»õ·Î¿î node¸¦ ¸¸µé¶§¸¶´Ù ÃÊ±âÈ­ ¼³Á¤ÀÌ Áß¿äÇÏ´Ù
 Node* insert(Node* node, int key)
 {
 	Node* determine;
-	if (node->leaf == 0)//leaf ¾Æ´Ò¶§
+	if (node->leaf == 0)//leaf ì•„ë‹ë•Œ
 	{
 		int count = 0;
 		while (node->element[count] != -1 && (key >= node->element[count]) && count <= 2)
 		{
 			count++;
-		}//while¹®ÀÌ ³¡³µÀ» ´ë nodeÀÇ element¿Í ºñ±³ÇÏ¿© ³ÖÀ¸·Á´Â key valueÀÇ ´ë¼Ò°ü°è, Áï À§Ä¡¸¦ Ç¥ÇöÇÒ ¼ö ÀÖ´Ù.
+		}//whileë¬¸ì´ ëë‚¬ì„ ëŒ€ nodeì˜ elementì™€ ë¹„êµí•˜ì—¬ ë„£ìœ¼ë ¤ëŠ” key valueì˜ ëŒ€ì†Œê´€ê³„, ì¦‰ ìœ„ì¹˜ë¥¼ í‘œí˜„í•  ìˆ˜ ìˆë‹¤.
 		determine = insert(node->link[count], key);
-		if (determine->celementnum == 4) //insert°¡ ³¡³µÀ» ¶§ split¿©ºÎ ÆÇ´Ü
+		if (determine->celementnum == 4) //insertê°€ ëë‚¬ì„ ë•Œ splitì—¬ë¶€ íŒë‹¨
 		{
-			return split(node, count);//ÇØ´ç count¿¡ Áı¾î³Ö¾î¼­ splitÇØ¾ßÇÏ´Â °ÍÀÌ±â¿¡
+			return split(node, count);//í•´ë‹¹ countì— ì§‘ì–´ë„£ì–´ì„œ splití•´ì•¼í•˜ëŠ” ê²ƒì´ê¸°ì—
 		}
-		else return determine;//split¾ÈÇÏ¸é °ª ±×´ë·Î »óÀ§ insert¿¡ Àü´Ş
+		else return determine;//splitì•ˆí•˜ë©´ ê°’ ê·¸ëŒ€ë¡œ ìƒìœ„ insertì— ì „ë‹¬
 	}
-	else//leafÀÏ ¶§(ÀÌ ´Ü°è¿¡¼­ insert¸¦ ÇØÁÖ¾î¾ß ÇÑ´Ù)
+	else//leafì¼ ë•Œ(ì´ ë‹¨ê³„ì—ì„œ insertë¥¼ í•´ì£¼ì–´ì•¼ í•œë‹¤)
 	{
 		leafinsert(node, key);
 		return node;
@@ -149,9 +149,9 @@ Node* insert(Node* node, int key)
 void leafinsert(Node* node, int key)
 {
 	int elenum = node->celementnum;
-	int insertcount = elenum - 1;//¹è¿­¿¡ ´ëÇÑ countingÀ» ÇØÁÖ¾î¿© ÇÔÀ¸·Î -1
-	node->celementnum++; //»õ·Î »ğÀÔÇÏ´Ï 1°³ ´õÇØÁØ´Ù.
-	while (node->element[insertcount] > key && insertcount >= 0) //elementary sortingÀ¸·Î key°ª insertÇÑ´Ù
+	int insertcount = elenum - 1;//ë°°ì—´ì— ëŒ€í•œ countingì„ í•´ì£¼ì–´ì—¬ í•¨ìœ¼ë¡œ -1
+	node->celementnum++; //ìƒˆë¡œ ì‚½ì…í•˜ë‹ˆ 1ê°œ ë”í•´ì¤€ë‹¤.
+	while (node->element[insertcount] > key && insertcount >= 0) //elementary sortingìœ¼ë¡œ keyê°’ insertí•œë‹¤
 	{
 		node->element[insertcount + 1] = node->element[insertcount];
 		insertcount--;
@@ -161,23 +161,23 @@ void leafinsert(Node* node, int key)
 
 Node* split(node* node, int splitnum) 
 {
-	Node* lchild = makenode();//split ÈÄ ¿ŞÂÊ child
-	Node* rchild = makenode();//split ÈÄ ¿À¸¥ÂÊ child
+	Node* lchild = makenode();//split í›„ ì™¼ìª½ child
+	Node* rchild = makenode();//split í›„ ì˜¤ë¥¸ìª½ child
 	int elenum = node->celementnum;
-	int insertcount = elenum - 1;//leafinsert¿Í °°Àº ¸Æ¶ôÀÌ´Ù
+	int insertcount = elenum - 1;//leafinsertì™€ ê°™ì€ ë§¥ë½ì´ë‹¤
 	int comparenumber = (node->link[splitnum])->element[2];
-	while (node->element[insertcount] > comparenumber && insertcount >= 0) //childÀÇ 3¹øÂ° Å°°ªÀ» ¹«Á¶°Ç ¿Ã¸°´Ù.
+	while (node->element[insertcount] > comparenumber && insertcount >= 0) //childì˜ 3ë²ˆì§¸ í‚¤ê°’ì„ ë¬´ì¡°ê±´ ì˜¬ë¦°ë‹¤.
 	{
 		node->element[insertcount + 1] = node->element[insertcount];
-		node->link[insertcount + 2] = node->link[insertcount + 1];//¿ìÃø¿¡ ÀÖ´Â ¸µÅ©¸¸ ¿Å°Ü¾ßÇÑ´Ù
+		node->link[insertcount + 2] = node->link[insertcount + 1];//ìš°ì¸¡ì— ìˆëŠ” ë§í¬ë§Œ ì˜®ê²¨ì•¼í•œë‹¤
 		insertcount--;
 	}
 	lchild = node->link[splitnum];
-	node->element[insertcount + 1] = (lchild)->element[2];//3¹øÂ° key¸¦ node¿¡ Àü´ŞÇØÁØ´Ù.
-	node->link[insertcount + 2] = rchild;//¿ìÃø child ÇÒ´ç
+	node->element[insertcount + 1] = (lchild)->element[2];//3ë²ˆì§¸ keyë¥¼ nodeì— ì „ë‹¬í•´ì¤€ë‹¤.
+	node->link[insertcount + 2] = rchild;//ìš°ì¸¡ child í• ë‹¹
 	node->celementnum++;
-	rchild->leaf = lchild->leaf;  //±âÁ¸ ÁÂÃø node¿¡¼­ ¿ìÃø node·Î Á¤º¸Àü´Ş.
-	rchild->element[0] = lchild->element[3]; //ÃÖ ¿ìÃø keyÀü´Ş
+	rchild->leaf = lchild->leaf;  //ê¸°ì¡´ ì¢Œì¸¡ nodeì—ì„œ ìš°ì¸¡ nodeë¡œ ì •ë³´ì „ë‹¬.
+	rchild->element[0] = lchild->element[3]; //ìµœ ìš°ì¸¡ keyì „ë‹¬
 	lchild->element[2] = -1;//reset
 	lchild->element[3] = -1;
 	rchild->link[0] = lchild->link[3];
@@ -186,7 +186,7 @@ Node* split(node* node, int splitnum)
 	lchild->link[4] = NULL;
 	rchild->celementnum = 1;
 	lchild->celementnum = 2;
-	return node;//split¿Ï·áµÈ nodeÁÖ¼Ò Àü´Ş
+	return node;//splitì™„ë£Œëœ nodeì£¼ì†Œ ì „ë‹¬
 }
 bool search(Node* node, int searchvalue)
 {
@@ -198,39 +198,40 @@ bool search(Node* node, int searchvalue)
 		if(searchvalue > node->element[counter])counter++;
 		else if (searchvalue == node->element[counter]) {
 			match = 1;
-			return match; //match°¡ µÇ¸é bool°ªÀ» returnÇÑ´Ù
+			return match; //matchê°€ ë˜ë©´ boolê°’ì„ returní•œë‹¤
 		}
 		else if (searchvalue < node->element[counter]) break;
 	}
-	if ((node->leaf) != 1) //leaf°¡ ¾Æ´Ñ°æ¿ì recursiveÇÏ°Ô child³ëµå·Î ³»·Á°£´Ù
+	if ((node->leaf) != 1) //leafê°€ ì•„ë‹Œê²½ìš° recursiveí•˜ê²Œ childë…¸ë“œë¡œ ë‚´ë ¤ê°„ë‹¤
 	{
 		match = search(node->link[counter], searchvalue);
 	}
 
-	return match; //leafÀÎµ¥µµ match°¡ 0ÀÌ¸é returnÇØÁØ´Ù
+	return match; //leafì¸ë°ë„ matchê°€ 0ì´ë©´ returní•´ì¤€ë‹¤
 }
 void addtoqueue(Node* node)
 {
-	queue[inlist++] = node; //node¸¦ queue¿¡ ÀúÀå
+	queue[inlist++] = node; //nodeë¥¼ queueì— ì €ì¥
 }
 Node* getfromqueue(void)
 {
-	if (queue[nodetoprint] != NULL)//°ªÀÌ ÀÖ´Â °æ¿ì¿¡ º¯¼ö °ªÀ» ¿Ã·ÁÁÖ°í
+	if (queue[nodetoprint] != NULL)//ê°’ì´ ìˆëŠ” ê²½ìš°ì— ë³€ìˆ˜ ê°’ì„ ì˜¬ë ¤ì£¼ê³ 
 	{
 		return queue[nodetoprint++];
 	}
-	else return queue[nodetoprint];// ¾øÀ¸¸é º¯¼ö(Æ÷ÀÎÅÍ ºñ½ÁÇÑ °³³ä)°ªÀ» ±×´ë·Î À¯ÁöÇÑ´Ù
+	else return queue[nodetoprint];// ì—†ìœ¼ë©´ ë³€ìˆ˜(í¬ì¸í„° ë¹„ìŠ·í•œ ê°œë…)ê°’ì„ ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤
 }
+//author: KJCHOI
 void printer(Node* root, FILE* file)
 {
-	addtoqueue(root); // root¸¦ Á¦ÀÏ Ã³À½¿¡ ÀúÀå
-	root->depth = 0; //depthÃÊ±âÈ­ child·Î °¡¸é 1¾¿ depth°¡ ´Ã¾î°£´Ù
+	addtoqueue(root); // rootë¥¼ ì œì¼ ì²˜ìŒì— ì €ì¥
+	root->depth = 0; //depthì´ˆê¸°í™” childë¡œ ê°€ë©´ 1ì”© depthê°€ ëŠ˜ì–´ê°„ë‹¤
 	while(1)
 	{
 		root = getfromqueue();
-		if (root) //queue¿¡¼­ returnµÈ °ªÀÌ ÀÖÀ¸¸é
+		if (root) //queueì—ì„œ returnëœ ê°’ì´ ìˆìœ¼ë©´
 		{
-			if (root->depth == 0) //rootÀÏ¶§ Ãâ·Â
+			if (root->depth == 0) //rootì¼ë•Œ ì¶œë ¥
 			{
 				if (root->element[0] >= 0)
 				{
@@ -241,7 +242,7 @@ void printer(Node* root, FILE* file)
 					fprintf(file, ")");
 				}
 			}
-			else if (root->depth == queue[nodetoprint - 2]->depth) //ÀÌÀü¿¡ ÀÖ´ø node¿Í depth ¿ä¼Ò°¡ °°À¸¸é ¶ç¾î¾²±â¸¸ ÇÑ´Ù. depth0°ú µû·Î µĞ ÀÌÀ¯´Â ¸Ş¸ğ¸® ÂüÁ¶¿À·ù ¾ø¾Ö±â À§ÇØ¼­ÀÌ´Ù
+			else if (root->depth == queue[nodetoprint - 2]->depth) //ì´ì „ì— ìˆë˜ nodeì™€ depth ìš”ì†Œê°€ ê°™ìœ¼ë©´ ë„ì–´ì“°ê¸°ë§Œ í•œë‹¤. depth0ê³¼ ë”°ë¡œ ë‘” ì´ìœ ëŠ” ë©”ëª¨ë¦¬ ì°¸ì¡°ì˜¤ë¥˜ ì—†ì• ê¸° ìœ„í•´ì„œì´ë‹¤
 			{
 				if (root->element[0] >= 0)
 				{
@@ -252,7 +253,7 @@ void printer(Node* root, FILE* file)
 					fprintf(file, ") ");
 				}
 			}
-			else//°³ÇàÇÑ´Ù
+			else//ê°œí–‰í•œë‹¤
 			{
 				if (root->element[0] >= 0)
 				{
@@ -266,7 +267,7 @@ void printer(Node* root, FILE* file)
 			if (root->link[0] != NULL) {
 				int depth = root->depth; //
 				depth++;
-				(root->link[0])->depth = depth; //1Áõ°¡µÈ depth¸¦ childÀÇ depth·Î ÀúÀåÇÑ´Ù
+				(root->link[0])->depth = depth; //1ì¦ê°€ëœ depthë¥¼ childì˜ depthë¡œ ì €ì¥í•œë‹¤
 				addtoqueue(root->link[0]);
 			}
 			if (root->link[1] != NULL) {
@@ -285,23 +286,24 @@ void printer(Node* root, FILE* file)
 		}
 		else break;
 	}
+	fprintf(file, "Written By Kangjoon Choi");
 }
 
-Node* deletion(Node* node, int key, int link) //parent node¸¦ ¹ŞÀº ÈÄ 
+Node* deletion(Node* node, int key, int link) //parent nodeë¥¼ ë°›ì€ í›„ 
 {
-	Node* child = node->link[link]; //child³ëµå °üÁ¡À¸·Î ³»·Á´Ù ºÁ¾ß ÇÑ´Ù
+	Node* child = node->link[link]; //childë…¸ë“œ ê´€ì ìœ¼ë¡œ ë‚´ë ¤ë‹¤ ë´ì•¼ í•œë‹¤
 	int count = 0;
-	while (child->element[count] != -1 && (key > child->element[count]) && count <= 2)//±âÁ¸°ú´Â ´Ù¸£°Ô key°¡ childelement°ª°ú °°À¸¸é count++¸¦ ¾ÈÇØÁØ´Ù
+	while (child->element[count] != -1 && (key > child->element[count]) && count <= 2)//ê¸°ì¡´ê³¼ëŠ” ë‹¤ë¥´ê²Œ keyê°€ childelementê°’ê³¼ ê°™ìœ¼ë©´ count++ë¥¼ ì•ˆí•´ì¤€ë‹¤
 	{
 		count++;
-	}//while¹®ÀÌ ³¡³µÀ» ´ë childnodeÀÇ element¿Í ºñ±³ÇÏ¿© ³ÖÀ¸·Á´Â key valueÀÇ ´ë¼Ò°ü°è, Áï À§Ä¡¸¦ Ç¥ÇöÇÒ ¼ö ÀÖ´Ù.
-	if (child->element[count] == key) //´ë¼Ò°ü°è¸¦ Åä´ë·Î deleteÇÒ °ªÀ» ¹ß°ßÇÑ°æ¿ì
+	}//whileë¬¸ì´ ëë‚¬ì„ ëŒ€ childnodeì˜ elementì™€ ë¹„êµí•˜ì—¬ ë„£ìœ¼ë ¤ëŠ” key valueì˜ ëŒ€ì†Œê´€ê³„, ì¦‰ ìœ„ì¹˜ë¥¼ í‘œí˜„í•  ìˆ˜ ìˆë‹¤.
+	if (child->element[count] == key) //ëŒ€ì†Œê´€ê³„ë¥¼ í† ëŒ€ë¡œ deleteí•  ê°’ì„ ë°œê²¬í•œê²½ìš°
 	{
-		if (child->leaf)//targetÀÌ leaf¿¡ Á¸ÀçÇÏ¸é ±×³É »èÁ¦
+		if (child->leaf)//targetì´ leafì— ì¡´ì¬í•˜ë©´ ê·¸ëƒ¥ ì‚­ì œ
 		{
 			child->element[count] = -1;
 			int temp;
-			while (child->celementnum - 1 > count)
+			while (child->celementnum - 1 >= count)
 			{
 				temp = child->element[count];
 				child->element[count] = child->element[count + 1];
@@ -309,15 +311,15 @@ Node* deletion(Node* node, int key, int link) //parent node¸¦ ¹ŞÀº ÈÄ
 				count++;
 			}
 			child->celementnum--;
-			if (child->celementnum == 0)
+			if (child->celementnum != 0)
 			{
-				return transfer(node, link);//childnode °ªÀÌ ¾ø°ÔµÇ¸é transfer°¡ ÇÊ¿äÇÔ »ç½Ç °­ÀÇÀÚ·á»ó¿¡ ³ª¿ÍÀÖ´Â °ğÀÌ °ğ´ë·Î transfer
-				//ÀÇ ÀÇ¹Ì°¡ ¾Æ´Ñ transer¿Í merge°¡ ÇÕÃÄÁø ÇÔ¼öÀÌ´Ù.
+				return transfer(node, link);//childnode ê°’ì´ ì—†ê²Œë˜ë©´ transferê°€ í•„ìš”í•¨ ì‚¬ì‹¤ ê°•ì˜ìë£Œìƒì— ë‚˜ì™€ìˆëŠ” ê³§ì´ ê³§ëŒ€ë¡œ transfer
+				//ì˜ ì˜ë¯¸ê°€ ì•„ë‹Œ transerì™€ mergeê°€ í•©ì³ì§„ í•¨ìˆ˜ì´ë‹¤.
 			}
 			return node;
 		}
-		else//ÀÌ °æ¿ì target°ªÀ» Ã£¾ÒÁö¸¸ leaf¿¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ìÀÌ´Ù. °­ÀÇÀÚ·á¿¡¼­ÀÇ algorithmÀ» »ç¿ëÇÏÀÚ¸é ith childÀÇ rightmost node
-		//Áï predecessor¸¦ Ã£¾Æ¼­ ¹Ù²ãÁÖ¾î¾ß ÇÑ´Ù
+		else//ì´ ê²½ìš° targetê°’ì„ ì°¾ì•˜ì§€ë§Œ leafì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°ì´ë‹¤. ê°•ì˜ìë£Œì—ì„œì˜ algorithmì„ ì‚¬ìš©í•˜ìë©´ ith childì˜ rightmost node
+		//ì¦‰ predecessorë¥¼ ì°¾ì•„ì„œ ë°”ê¿”ì£¼ì–´ì•¼ í•œë‹¤
 		{
 			Node* predecessor = findpredecessornode(child->link[count]);
 			key = (predecessor->element)[predecessor->celementnum - 1];
@@ -325,13 +327,13 @@ Node* deletion(Node* node, int key, int link) //parent node¸¦ ¹ŞÀº ÈÄ
 			deletion(child, key, count);
 		}
 	}
-	else if (child->leaf) return NULL; //leaf±îÁö µµ´ŞÇß´Âµ¥µµ ºÒ±¸ÇÏ°í À§ÀÇ if¸¦ Åë°úÇÏÁö ¸øÇß´Ù¸é deleteÇÒ °ªÀÌ ¾ø´Â°ÍÀÌ´Ù ÀÌ ÁÙÀº ´ÙÀ½¿¡ ³ª¿Ã ÁÙº¸´Ù Ç×»ó ¸ÕÀú ÀÖ¾î¾ßÇÑ´Ù
-	//¾È±×·¯¸é ending condition¸¸Á·À» ÇÏÁö ¸øÇÏ±â ¶§¹®ÀÌ´Ù //±¸¼ú ÁØºñÇÏ´Ù ¹ß°ßÇÑ Á¡ÀÎµ¥, »ç½Ç NULL°ªÀ» ¸®ÅÏÇßÀ¸¸é ¾ÈµÆ´Ù. ¸®ÅÏÇÒ°æ¿ì »õ·Î¿î ³ëµå¸¦ ¸¸µé¾î¹ö·Á ÇÁ·Î±×·¥ÀÌ ¿À·ù°¡ ³ª¹ö¸®±â ¶§¹®ÀÌ´Ù
-	//¹«ÀÇ½ÄÀûÀ¸·Î ±×³É return 0¿Í ºñ½ÁÇÑ °³³äÀ¸·Î ºó °ªÀ» µ¹·ÁÁÖ·Á Çß´Ù.
-	else deletion(child, key, count);//recursiveÇÏ°Ô child node¸¦ parent node·Î ÀÖÀ» ¼ö ÀÖµµ·Ï ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù
+	else if (child->leaf) return NULL; //leafê¹Œì§€ ë„ë‹¬í–ˆëŠ”ë°ë„ ë¶ˆêµ¬í•˜ê³  ìœ„ì˜ ifë¥¼ í†µê³¼í•˜ì§€ ëª»í–ˆë‹¤ë©´ deleteí•  ê°’ì´ ì—†ëŠ”ê²ƒì´ë‹¤ ì´ ì¤„ì€ ë‹¤ìŒì— ë‚˜ì˜¬ ì¤„ë³´ë‹¤ í•­ìƒ ë¨¼ì € ìˆì–´ì•¼í•œë‹¤
+	//ì•ˆê·¸ëŸ¬ë©´ ending conditionë§Œì¡±ì„ í•˜ì§€ ëª»í•˜ê¸° ë•Œë¬¸ì´ë‹¤ //êµ¬ìˆ  ì¤€ë¹„í•˜ë‹¤ ë°œê²¬í•œ ì ì¸ë°, ì‚¬ì‹¤ NULLê°’ì„ ë¦¬í„´í–ˆìœ¼ë©´ ì•ˆëë‹¤. ë¦¬í„´í• ê²½ìš° ìƒˆë¡œìš´ ë…¸ë“œë¥¼ ë§Œë“¤ì–´ë²„ë ¤ í”„ë¡œê·¸ë¨ì´ ì˜¤ë¥˜ê°€ ë‚˜ë²„ë¦¬ê¸° ë•Œë¬¸ì´ë‹¤
+	//ë¬´ì˜ì‹ì ìœ¼ë¡œ ê·¸ëƒ¥ return 0ì™€ ë¹„ìŠ·í•œ ê°œë…ìœ¼ë¡œ ë¹ˆ ê°’ì„ ëŒë ¤ì£¼ë ¤ í–ˆë‹¤.
+	else deletion(child, key, count);//recursiveí•˜ê²Œ child nodeë¥¼ parent nodeë¡œ ìˆì„ ìˆ˜ ìˆë„ë¡ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œë‹¤
 	if (child->celementnum == 0)
 	{
-		transfer(node, link); // childnode °ªÀÌ ¾ø°ÔµÇ¸é transfer½ÃÇà
+		transfer(node, link); // childnode ê°’ì´ ì—†ê²Œë˜ë©´ transferì‹œí–‰
 	}
 	return child;
 }
@@ -342,59 +344,59 @@ Node* findpredecessornode(Node* node)
 	{
 		return node;
 	}
-	return findpredecessornode(node->link[node->celementnum]);//Á¦ÀÏ ¿ìÃø¿¡ ÀÖ´Â ³ëµå·Î ³»·Á°¡¾ß ÇÑ´Ù
+	return findpredecessornode(node->link[node->celementnum]);//ì œì¼ ìš°ì¸¡ì— ìˆëŠ” ë…¸ë“œë¡œ ë‚´ë ¤ê°€ì•¼ í•œë‹¤
 }
 
-Node* transfer(Node* node, int link)//parent°ªÀ» ¹Ş¾Ò´Ù(link¿¡¼­ÀÇ child node°¡ ¾øÀ»¶§)
-{//child¿¡ ¾Æ¹« °ªµµ ¾ø´Ù´Â ÀüÁ¦ ÇÏ¿¡¼­ ÀÌ·ç¾îÁö´Â ¿¬»êÀÌ´Ù
-	Node* destination = node->link[link];//transferÀ» ¹Ş¾ÒÀ»¶§ ºñ¾îÀÖ´ø child
-	Node* source;//°ª transfer¸¦ ½ÃÀÛÇÒ ¼ö ÀÖµµ·Ï key°ªÀ» Á¦°øÇØÁÖ´Â node
-	if (link == 0 && node->celementnum != 0)//Á¦ÀÏ ÁÂÃø node¿¡ °ªÀÌ ¾ø´Â »óÈ²
+Node* transfer(Node* node, int link)//parentê°’ì„ ë°›ì•˜ë‹¤(linkì—ì„œì˜ child nodeê°€ ì—†ì„ë•Œ)
+{//childì— ì•„ë¬´ ê°’ë„ ì—†ë‹¤ëŠ” ì „ì œ í•˜ì—ì„œ ì´ë£¨ì–´ì§€ëŠ” ì—°ì‚°ì´ë‹¤
+	Node* destination = node->link[link];//transferì„ ë°›ì•˜ì„ë•Œ ë¹„ì–´ìˆë˜ child
+	Node* source;//ê°’ transferë¥¼ ì‹œì‘í•  ìˆ˜ ìˆë„ë¡ keyê°’ì„ ì œê³µí•´ì£¼ëŠ” node
+	if (link == 0 && node->celementnum == 0)//ì œì¼ ì¢Œì¸¡ nodeì— ê°’ì´ ì—†ëŠ” ìƒí™©
 	{
 		source = node->link[1];
 		destination->element[0] = node->element[0];
 		destination->celementnum++;
 		if (source->celementnum == 1)
 		{
-			fusion(node, link, link + 1); //sourceÀÇ element°¡ ÇÏ³ª¹Û¿¡ ¾øÀ»°æ¿ì ¾ç ³ëµå¸¦ ÇÕÇÑ´Ù
-			return node;//ÇÕÄ¥ ÀÚ·á°¡ ÀÖ´Â childÀÇ link¸¦ ÁÂÃøÀ¸·Î, ÀÚ·á°¡ ¾ø´Âlink¸¦ ¿ìÃø inputÀ¸·Î ¼³Á¤ÇÑ´Ù
+			fusion(node, link, link + 1); //sourceì˜ elementê°€ í•˜ë‚˜ë°–ì— ì—†ì„ê²½ìš° ì–‘ ë…¸ë“œë¥¼ í•©í•œë‹¤
+			return node;//í•©ì¹  ìë£Œê°€ ìˆëŠ” childì˜ linkë¥¼ ì¢Œì¸¡ìœ¼ë¡œ, ìë£Œê°€ ì—†ëŠ”linkë¥¼ ìš°ì¸¡ inputìœ¼ë¡œ ì„¤ì •í•œë‹¤
 		}
 		else
 		{
-			node->element[0] = source->element[0];//source °ªÀÌ ÃæºĞÇÒ °æ¿ì ºÎ¸ğ¿¡°Ô element 1°³ ºÎ¿©ÇÏ°í
-			destination->link[1] = source->link[0];//ÁØ keyº¸´Ù ÀÛÀº key°ªÀ» °¡Áö°í ÀÖ´Â node¸¦ °¡¸£Å°´Â link¸¦ ÁÂÃøÀ¸·Î ºÎ¿©ÇØÁØ´Ù.
+			node->element[0] = source->element[0];//source ê°’ì´ ì¶©ë¶„í•  ê²½ìš° ë¶€ëª¨ì—ê²Œ element 1ê°œ ë¶€ì—¬í•˜ê³ 
+			destination->link[1] = source->link[0];//ì¤€ keyë³´ë‹¤ ì‘ì€ keyê°’ì„ ê°€ì§€ê³  ìˆëŠ” nodeë¥¼ ê°€ë¥´í‚¤ëŠ” linkë¥¼ ì¢Œì¸¡ìœ¼ë¡œ ë¶€ì—¬í•´ì¤€ë‹¤.
 			source->celementnum--;
 			int elenum = 0;
-			while (elenum < source->celementnum)//ºóÀÚ¸® Ã¤¿ì±â
+			while (elenum < source->celementnum)//ë¹ˆìë¦¬ ì±„ìš°ê¸°
 			{
 				source->link[elenum] = source->link[elenum + 1];
 				source->element[elenum] = source->element[elenum + 1];
 				elenum++;
 			}
 			source->link[elenum] = NULL;
-			source->element[elenum] = -1;//ÃÊ±âÈ­
+			source->element[elenum] = -1;//ì´ˆê¸°í™”
 			return node;
-		} //ºñ½ÁÇÑ ÀÛ¾÷À» sourceÇÏ´Â node¸¸ ¹Ù²Ù¾î Á¦ÀÏ ¿ìÃø node¿¡¼­µµ ÁøÇà½ÃÄÑ ÁÖ¸é µÈ´Ù
+		} //ë¹„ìŠ·í•œ ì‘ì—…ì„ sourceí•˜ëŠ” nodeë§Œ ë°”ê¾¸ì–´ ì œì¼ ìš°ì¸¡ nodeì—ì„œë„ ì§„í–‰ì‹œì¼œ ì£¼ë©´ ëœë‹¤
 	}
-	else if (link == node->celementnum && node->celementnum != 0) //Á¦ÀÏ ¿ìÃø node¿¡ °ªÀÌ ¾ø´Â »óÈ²
+	else if (link == node->celementnum && node->celementnum != 0) //ì œì¼ ìš°ì¸¡ nodeì— ê°’ì´ ì—†ëŠ” ìƒí™©
 	{
 		source = node->link[link - 1];
-		destination->element[0] = node->element[link - 1];//Á¦ÀÏ ¿ìÃø¿¡ ÀÖ´Â °ª Àü´Ş
+		destination->element[0] = node->element[link - 1];//ì œì¼ ìš°ì¸¡ì— ìˆëŠ” ê°’ ì „ë‹¬
 		destination->celementnum++;
 		if (source->celementnum == 1)
 		{
-			fusion(node, link, link - 1); //sourceÀÇ node¿¡ °ªÀÌ ¾ø¾îÁ³À»°æ¿ì fusionÀÛ¾÷ÀÌ ÇÊ¿äÇÏ´Ù
-			return node;//ÇÕÄ¥ ÀÚ·á°¡ ÀÖ´Â childÀÇ link¸¦ ÁÂÃøÀ¸·Î, ÀÚ·á°¡ ¾ø´Âlink¸¦ ¿ìÃø inputÀ¸·Î ¼³Á¤ÇÑ´Ù
+			fusion(node, link, link - 1); //sourceì˜ nodeì— ê°’ì´ ì—†ì–´ì¡Œì„ê²½ìš° fusionì‘ì—…ì´ í•„ìš”í•˜ë‹¤
+			return node;//í•©ì¹  ìë£Œê°€ ìˆëŠ” childì˜ linkë¥¼ ì¢Œì¸¡ìœ¼ë¡œ, ìë£Œê°€ ì—†ëŠ”linkë¥¼ ìš°ì¸¡ inputìœ¼ë¡œ ì„¤ì •í•œë‹¤
 		}
 		else
 		{
 			node->element[link - 1] = source->element[source->celementnum - 1];
 			destination->link[1] = destination->link[0];//
-			destination->link[0] = source->link[source->celementnum]; //ÀÌÁ¦ ºÎ¸ğnode °ªÀÌ sourceÀÇ ¸Ç ¸¶Áö¸· child°¡ °¡¸£Å°´Â nodeÀÇ °ªº¸´Ù ÀÛÀ¸´Ï 
-			source->element[source->celementnum - 1] = -1;//ÃÊ±âÈ­
-			source->celementnum--;//link¸¦ ¿ìÃøÀ¸·Î ºÎ¿©ÇØÁØ´Ù
-			/* ¿ìÃø¿¡¼­ ºô·Á¿À´Â°Ô ¾Æ´Ï¹Ç·Î ¾Æ·¡ÀÇ ÀÛ¾÷Àº ÇÊ¿ä¾ø´Ù.
-			while (elenum < source->celementnum)//ºóÀÚ¸® Ã¤¿ì±â
+			destination->link[0] = source->link[source->celementnum]; //ì´ì œ ë¶€ëª¨node ê°’ì´ sourceì˜ ë§¨ ë§ˆì§€ë§‰ childê°€ ê°€ë¥´í‚¤ëŠ” nodeì˜ ê°’ë³´ë‹¤ ì‘ìœ¼ë‹ˆ 
+			source->element[source->celementnum - 1] = -1;//ì´ˆê¸°í™”
+			source->celementnum--;//linkë¥¼ ìš°ì¸¡ìœ¼ë¡œ ë¶€ì—¬í•´ì¤€ë‹¤
+			/* ìš°ì¸¡ì—ì„œ ë¹Œë ¤ì˜¤ëŠ”ê²Œ ì•„ë‹ˆë¯€ë¡œ ì•„ë˜ì˜ ì‘ì—…ì€ í•„ìš”ì—†ë‹¤.
+			while (elenum < source->celementnum)//ë¹ˆìë¦¬ ì±„ìš°ê¸°
 			{
 				source->link[elenum] = source->link[elenum + 1];
 				source->element[elenum] = source->element[elenum + 1];
@@ -405,34 +407,34 @@ Node* transfer(Node* node, int link)//parent°ªÀ» ¹Ş¾Ò´Ù(link¿¡¼­ÀÇ child node°¡ 
 			return node;
 		}
 	}
-	else if (node->celementnum != 0) //ÁÂ/¿ìÀÇ ³ëµå¸¦ ÂüÁ¶ÇÒ ¼ö ÀÖÀ»ÅÙµ¥, À§¿¡¼­ º¸ÀÌ´Â °Í Ã³·³ ÁÂÃø³ëµå¸¦ source·Î ÇÏ´Â °ÍÀÌ ºñ±³¿¬»ê ¾ÈÇØ¼­ ÇÕ¸®ÀûÀÌ´Ù.
-	{//ÁÂ, ¿ì°¡ µÑ ´Ù 2nodeÀÎ °æ¿ì ÁÂÃø³ëµå ÂüÁ¶¸¦ ¿ì¼±À¸·Î ÇÑ´Ù. 
-		if ((node->link[link + 1])->celementnum == 1 || ((node->link[link - 1])->celementnum) > 1)//ÀÌ °æ¿ì ¿ìÃøÀ» ÇÊ¿ä·Î ÇÏÁö ¾Ê´ÂÀÌ»ó ¹«Á¶°Ç ÁÂÃø³ëµåºÎÅÍ ÂüÁ¶ÇÏ°Ô µÈ´Ù
+	else if (node->celementnum != 0) //ì¢Œ/ìš°ì˜ ë…¸ë“œë¥¼ ì°¸ì¡°í•  ìˆ˜ ìˆì„í…ë°, ìœ„ì—ì„œ ë³´ì´ëŠ” ê²ƒ ì²˜ëŸ¼ ì¢Œì¸¡ë…¸ë“œë¥¼ sourceë¡œ í•˜ëŠ” ê²ƒì´ ë¹„êµì—°ì‚° ì•ˆí•´ì„œ í•©ë¦¬ì ì´ë‹¤.
+	{//ì¢Œ, ìš°ê°€ ë‘˜ ë‹¤ 2nodeì¸ ê²½ìš° ì¢Œì¸¡ë…¸ë“œ ì°¸ì¡°ë¥¼ ìš°ì„ ìœ¼ë¡œ í•œë‹¤. 
+		if ((node->link[link + 1])->celementnum == 1 || ((node->link[link - 1])->celementnum) > 1)//ì´ ê²½ìš° ìš°ì¸¡ì„ í•„ìš”ë¡œ í•˜ì§€ ì•ŠëŠ”ì´ìƒ ë¬´ì¡°ê±´ ì¢Œì¸¡ë…¸ë“œë¶€í„° ì°¸ì¡°í•˜ê²Œ ëœë‹¤
 		{
 			source = node->link[link - 1];
-			destination->element[0] = node->element[link - 1]; //±×³É link¸¦ ÇÏ¸é ¿ìÃø¿¡ ÀÖ´Â node¿Í ±³·ù¸¦ ÇÏ°ÔµÇ´Ï ÁÖÀÇ°¡ ÇÊ¿äÇÏ´Ù
+			destination->element[0] = node->element[link - 1]; //ê·¸ëƒ¥ linkë¥¼ í•˜ë©´ ìš°ì¸¡ì— ìˆëŠ” nodeì™€ êµë¥˜ë¥¼ í•˜ê²Œë˜ë‹ˆ ì£¼ì˜ê°€ í•„ìš”í•˜ë‹¤
 			destination->celementnum++;
 			if (source->celementnum == 1)
 			{
-				fusion(node, link, link - 1); //sourceÀÇ node¿¡ °ªÀÌ ¾ø¾îÁ³À»°æ¿ì fusionÀÛ¾÷ÀÌ ÇÊ¿äÇÏ´Ù
-				return node;//ÇÕÄ¥ ÀÚ·á°¡ ÀÖ´Â childÀÇ link¸¦ ÁÂÃøÀ¸·Î, ÀÚ·á°¡ ¾ø´Âlink¸¦ ¿ìÃø inputÀ¸·Î ¼³Á¤ÇÑ´Ù
+				fusion(node, link, link - 1); //sourceì˜ nodeì— ê°’ì´ ì—†ì–´ì¡Œì„ê²½ìš° fusionì‘ì—…ì´ í•„ìš”í•˜ë‹¤
+				return node;//í•©ì¹  ìë£Œê°€ ìˆëŠ” childì˜ linkë¥¼ ì¢Œì¸¡ìœ¼ë¡œ, ìë£Œê°€ ì—†ëŠ”linkë¥¼ ìš°ì¸¡ inputìœ¼ë¡œ ì„¤ì •í•œë‹¤
 			}
 			else
 			{
 				node->element[link - 1] = source->element[source->celementnum - 1];
 				destination->link[1] = destination->link[0];//
-				destination->link[0] = source->link[source->celementnum]; //ÀÌÁ¦ ºÎ¸ğnode °ªÀÌ sourceÀÇ ¸Ç ¸¶Áö¸· child°¡ °¡¸£Å°´Â nodeÀÇ °ªº¸´Ù ÀÛÀ¸´Ï
-				source->element[source->celementnum - 1] = -1;//ÃÊ±âÈ­
-				source->celementnum--;//link¸¦ ¿ìÃøÀ¸·Î ºÎ¿©ÇØÁØ´Ù
-				/* ¿ìÃø¿¡¼­ ºô·Á¿À´Â°Ô ¾Æ´Ï¹Ç·Î ¾Æ·¡ÀÇ ÀÛ¾÷Àº ÇÊ¿ä¾ø´Ù.
-				while (elenum < source->celementnum)//ºóÀÚ¸® Ã¤¿ì±â
+				destination->link[0] = source->link[source->celementnum]; //ì´ì œ ë¶€ëª¨node ê°’ì´ sourceì˜ ë§¨ ë§ˆì§€ë§‰ childê°€ ê°€ë¥´í‚¤ëŠ” nodeì˜ ê°’ë³´ë‹¤ ì‘ìœ¼ë‹ˆ
+				source->element[source->celementnum - 1] = -1;//ì´ˆê¸°í™”
+				source->celementnum--;//linkë¥¼ ìš°ì¸¡ìœ¼ë¡œ ë¶€ì—¬í•´ì¤€ë‹¤
+				/* ìš°ì¸¡ì—ì„œ ë¹Œë ¤ì˜¤ëŠ”ê²Œ ì•„ë‹ˆë¯€ë¡œ ì•„ë˜ì˜ ì‘ì—…ì€ í•„ìš”ì—†ë‹¤.
+				while (elenum < source->celementnum)//ë¹ˆìë¦¬ ì±„ìš°ê¸°
 				{
 					source->link[elenum] = source->link[elenum + 1];
 					source->element[elenum] = source->element[elenum + 1];
 					elenum++;
 				}
 				source->link[elenum] = NULL;
-				source->element[elenum] = -1;//ÃÊ±âÈ­
+				source->element[elenum] = -1;//ì´ˆê¸°í™”
 				return node;
 				*/
 				return node;
@@ -440,40 +442,40 @@ Node* transfer(Node* node, int link)//parent°ªÀ» ¹Ş¾Ò´Ù(link¿¡¼­ÀÇ child node°¡ 
 		}
 		else
 		{
-			source = node->link[link + 1]; //ÀÌÁ¦ ¿ìÃø¿¡ ÀÖ´Â ³ëµå¸¦ ÂüÁ¶ÇÑ´Ù
+			source = node->link[link + 1]; //ì´ì œ ìš°ì¸¡ì— ìˆëŠ” ë…¸ë“œë¥¼ ì°¸ì¡°í•œë‹¤
 			destination->element[0] = node->element[link];
 			destination->celementnum++;
-			/* ÀÌ ºÎºĞÀº ¾îÂ÷ÇÇ Á¦ÀÏ Ã¹ ¹øÂ° »óÈ², ±×¸®°í ¼¼¹øÂ° »óÈ²¿¡¼­ °É·¯Á³À» °ÍÀÌ±â¿¡ ÇÊ¿ä¾ø´Ù
+			/* ì´ ë¶€ë¶„ì€ ì–´ì°¨í”¼ ì œì¼ ì²« ë²ˆì§¸ ìƒí™©, ê·¸ë¦¬ê³  ì„¸ë²ˆì§¸ ìƒí™©ì—ì„œ ê±¸ëŸ¬ì¡Œì„ ê²ƒì´ê¸°ì— í•„ìš”ì—†ë‹¤
 			if (source->celementnum == 1)
 			{
-				fusion(node, link, link + 1); //sourceÀÇ element°¡ ÇÏ³ª¹Û¿¡ ¾øÀ»°æ¿ì ¾ç ³ëµå¸¦ ÇÕÇÑ´Ù
-				return node;//ÇÕÄ¥ ÀÚ·á°¡ ÀÖ´Â childÀÇ link¸¦ ÁÂÃøÀ¸·Î, ÀÚ·á°¡ ¾ø´Âlink¸¦ ¿ìÃø inputÀ¸·Î ¼³Á¤ÇÑ´Ù
+				fusion(node, link, link + 1); //sourceì˜ elementê°€ í•˜ë‚˜ë°–ì— ì—†ì„ê²½ìš° ì–‘ ë…¸ë“œë¥¼ í•©í•œë‹¤
+				return node;//í•©ì¹  ìë£Œê°€ ìˆëŠ” childì˜ linkë¥¼ ì¢Œì¸¡ìœ¼ë¡œ, ìë£Œê°€ ì—†ëŠ”linkë¥¼ ìš°ì¸¡ inputìœ¼ë¡œ ì„¤ì •í•œë‹¤
 			}
 			*/
-			node->element[link] = source->element[0];//source °ªÀÌ ÃæºĞÇÒ °æ¿ì ºÎ¸ğ¿¡°Ô element 1°³ ºÎ¿©ÇÏ°í
-			destination->link[1] = source->link[0];//ÁØ keyº¸´Ù ÀÛÀº key°ªÀ» °¡Áö°í ÀÖ´Â node¸¦ °¡¸£Å°´Â link¸¦ ÁÂÃøÀ¸·Î ºÎ¿©ÇØÁØ´Ù.
+			node->element[link] = source->element[0];//source ê°’ì´ ì¶©ë¶„í•  ê²½ìš° ë¶€ëª¨ì—ê²Œ element 1ê°œ ë¶€ì—¬í•˜ê³ 
+			destination->link[1] = source->link[0];//ì¤€ keyë³´ë‹¤ ì‘ì€ keyê°’ì„ ê°€ì§€ê³  ìˆëŠ” nodeë¥¼ ê°€ë¥´í‚¤ëŠ” linkë¥¼ ì¢Œì¸¡ìœ¼ë¡œ ë¶€ì—¬í•´ì¤€ë‹¤.
 			source->celementnum--;
 			int elenum = 0;
-			while (elenum < source->celementnum)//ºóÀÚ¸® Ã¤¿ì±â
+			while (elenum <= source->celementnum)//ë¹ˆìë¦¬ ì±„ìš°ê¸°
 			{
 				source->link[elenum] = source->link[elenum + 1];
 				source->element[elenum] = source->element[elenum + 1];
 				elenum++;
 			}
 			source->link[elenum] = NULL;
-			source->element[elenum] = -1;//ÃÊ±âÈ­
+			source->element[elenum] = -1;//ì´ˆê¸°í™”
 			return node;
 		}
 	}
-	else //°ªÀÌ parent´Ü¿¡µµ ¾ø´Â°æ¿ì
+	else //ê°’ì´ parentë‹¨ì—ë„ ì—†ëŠ”ê²½ìš°
 	{
 	return node->link[link];
 	}
 }
 
 void fusion(Node* parentnode, int received, int source)
-{//¾îÂ÷ÇÇ fusionÀº ±âÁ¸ÀÇ node¿¡ °ªÀÌ ¾ø¾ú°í 1°³ÀÇ Å°¸¦ Àü´ŞÇØ ÁÖ¾ú´ø °ÍÀ» Åä´ë·Î ÇÏ´Ï 
-//elementÀÇ »çÀÌÁî´Â ¾îÂ÷ÇÇ 1ÀÌ´Ù
+{//ì–´ì°¨í”¼ fusionì€ ê¸°ì¡´ì˜ nodeì— ê°’ì´ ì—†ì—ˆê³  1ê°œì˜ í‚¤ë¥¼ ì „ë‹¬í•´ ì£¼ì—ˆë˜ ê²ƒì„ í† ëŒ€ë¡œ í•˜ë‹ˆ 
+//elementì˜ ì‚¬ì´ì¦ˆëŠ” ì–´ì°¨í”¼ 1ì´ë‹¤
 	Node* relement = parentnode->link[received];
 	Node* selement = parentnode->link[source]; 
 	if (received > source)
@@ -482,7 +484,7 @@ void fusion(Node* parentnode, int received, int source)
 		selement->link[2] = relement->link[0];
 		selement->celementnum++;
 		int i = source;
-		while (i < parentnode->celementnum - 1)//fusionÇÒ½Ã¿¡´Â node¿¡¼­ °ª Àü´Ş¸¸ ÇÏ°í element»óÀ¸·Î Áö¿ìÁö¸¦ ¾Ê¾ÒÀ¸´Ï Áö¿öÁØ´Ù
+		while (i < parentnode->celementnum - 1)//fusioní• ì‹œì—ëŠ” nodeì—ì„œ ê°’ ì „ë‹¬ë§Œ í•˜ê³  elementìƒìœ¼ë¡œ ì§€ìš°ì§€ë¥¼ ì•Šì•˜ìœ¼ë‹ˆ ì§€ì›Œì¤€ë‹¤
 		{
 			parentnode->element[i] = parentnode->element[i + 1];
 			parentnode->link[i + 1] = parentnode->link[i + 2];
@@ -503,7 +505,7 @@ void fusion(Node* parentnode, int received, int source)
 		relement->link[2] = selement->link[1];
 		relement->celementnum++;
 		int i = received;
-		while (i < parentnode->celementnum - 1)//fusionÇÒ½Ã¿¡´Â node¿¡¼­ °ª Àü´Ş¸¸ ÇÏ°í element»óÀ¸·Î Áö¿ìÁö¸¦ ¾Ê¾ÒÀ¸´Ï Áö¿öÁØ´Ù
+		while (i < parentnode->celementnum - 1)//fusioní• ì‹œì—ëŠ” nodeì—ì„œ ê°’ ì „ë‹¬ë§Œ í•˜ê³  elementìƒìœ¼ë¡œ ì§€ìš°ì§€ë¥¼ ì•Šì•˜ìœ¼ë‹ˆ ì§€ì›Œì¤€ë‹¤
 		{
 			parentnode->element[i] = parentnode->element[i + 1];
 			parentnode->link[i + 1] = parentnode->link[i + 2];
