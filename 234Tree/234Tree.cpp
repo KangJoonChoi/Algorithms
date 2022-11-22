@@ -81,7 +81,7 @@ int main(void)
 			}
 			else if (root->element[0] == -1 && root->link[0])//root만 fusion으로 인하여 사라진 경우
 			{
-				root = root->link[0];
+			root = root->link[0];
 			}
 			printer(root, output);
 			fprintf(output, "\n\n");
@@ -98,7 +98,7 @@ int main(void)
 				fprintf(output, "not exist\n\n");
 			}
 		}
-
+		
 	}
 	fclose(input);
 	fclose(output);
@@ -133,7 +133,7 @@ Node* insert(Node* node, int key)
 			count++;
 		}//while문이 끝났을 대 node의 element와 비교하여 넣으려는 key value의 대소관계, 즉 위치를 표현할 수 있다.
 		determine = insert(node->link[count], key);
-		if (determine->celementnum == 3) //insert가 끝났을 때 split여부 판단
+		if (determine->celementnum == 4) //insert가 끝났을 때 split여부 판단
 		{
 			return split(node, count);//해당 count에 집어넣어서 split해야하는 것이기에
 		}
@@ -159,7 +159,7 @@ void leafinsert(Node* node, int key)
 	node->element[insertcount + 1] = key;
 }
 
-Node* split(node* node, int splitnum)
+Node* split(node* node, int splitnum) 
 {
 	Node* lchild = makenode();//split 후 왼쪽 child
 	Node* rchild = makenode();//split 후 오른쪽 child
@@ -195,7 +195,7 @@ bool search(Node* node, int searchvalue)
 	bool match = 0;
 	while (counter < node->celementnum)
 	{
-		if (searchvalue > node->element[counter])counter++;
+		if(searchvalue > node->element[counter])counter++;
 		else if (searchvalue == node->element[counter]) {
 			match = 1;
 			return match; //match가 되면 bool값을 return한다
@@ -225,12 +225,12 @@ void printer(Node* root, FILE* file)
 {
 	addtoqueue(root); // root를 제일 처음에 저장
 	root->depth = 0; //depth초기화 child로 가면 1씩 depth가 늘어간다
-	while (1)
+	while(1)
 	{
 		root = getfromqueue();
 		if (root) //queue에서 return된 값이 있으면
 		{
-			if (root->depth == 1) //root일때 출력
+			if (root->depth == 0) //root일때 출력
 			{
 				if (root->element[0] >= 0)
 				{
@@ -241,7 +241,7 @@ void printer(Node* root, FILE* file)
 					fprintf(file, ")");
 				}
 			}
-			else if (root->depth == queue[nodetoprint - 1]->depth) //이전에 있던 node와 depth 요소가 같으면 띄어쓰기만 한다. depth0과 따로 둔 이유는 메모리 참조오류 없애기 위해서이다
+			else if (root->depth == queue[nodetoprint - 2]->depth) //이전에 있던 node와 depth 요소가 같으면 띄어쓰기만 한다. depth0과 따로 둔 이유는 메모리 참조오류 없애기 위해서이다
 			{
 				if (root->element[0] >= 0)
 				{
@@ -257,8 +257,9 @@ void printer(Node* root, FILE* file)
 				if (root->element[0] >= 0)
 				{
 					fprintf(file, "\n(");
-					if (root->element[1] != -1) fprintf(file, " %d", root->element[0]);
-					if (root->element[2] != -1) fprintf(file, " %d", root->element[1]);
+					if (root->element[0] != -1) fprintf(file, "%d", root->element[0]);
+					if (root->element[1] != -1) fprintf(file, " %d", root->element[1]);
+					if (root->element[2] != -1) fprintf(file, " %d", root->element[2]);
 					fprintf(file, ") ");
 				}
 			}
@@ -280,7 +281,7 @@ void printer(Node* root, FILE* file)
 				(root->link[3])->depth = (root->link[0])->depth;
 				addtoqueue(root->link[3]);
 			}
-
+			
 		}
 		else break;
 	}
@@ -466,7 +467,7 @@ Node* transfer(Node* node, int link)//parent값을 받았다(link에서의 child
 	}
 	else //값이 parent단에도 없는경우
 	{
-		return node->link[link];
+	return node->link[link];
 	}
 }
 
@@ -474,7 +475,7 @@ void fusion(Node* parentnode, int received, int source)
 {//어차피 fusion은 기존의 node에 값이 없었고 1개의 키를 전달해 주었던 것을 토대로 하니 
 //element의 사이즈는 어차피 1이다
 	Node* relement = parentnode->link[received];
-	Node* selement = parentnode->link[source];
+	Node* selement = parentnode->link[source]; 
 	if (received > source)
 	{
 		selement->element[1] = relement->element[0];
